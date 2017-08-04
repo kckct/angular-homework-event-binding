@@ -1,11 +1,16 @@
 import { browser, by, element } from 'protractor';
 
-export class AngularHomeworkEventBindingPage {
+export class HomeworkPage {
   navigateTo() {
-    return browser.get('/');
+    browser.get('/');
+    return this;
   }
 
-  getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+  setOption(input: string) {
+    return element(by.cssContainingText('option', input)).click();
+  }
+
+  getSpanText() {
+    return element(by.css('span')).getText();
   }
 }
