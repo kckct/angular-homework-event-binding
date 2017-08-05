@@ -46,5 +46,10 @@ describe('AppComponent', () => {
       fixture.detectChanges();
       expect(component.selectedValue).toBe('0');
     });
+
+    it(`should change 'selectedValue' when 'selectedValue' changed`, () => {
+      target.selectedValue = 'fake';
+      expect(target.selectedValue).toBe('fake');
+    });
   });
 });
