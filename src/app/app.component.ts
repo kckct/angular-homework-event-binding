@@ -6,5 +6,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  cloudServices: CloudService[] = [
+    {id: '0', name: 'AWS'},
+    {id: '1', name: 'Azure'},
+    {id: '2', name: 'Aliyun'}
+  ];
+
   selectedValue = '0';
+}
+
+export class CloudService {
+  id: string;
+  name: string;
 }

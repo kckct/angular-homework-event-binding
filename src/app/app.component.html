@@ -2,7 +2,7 @@
   <h1>Homework Event Binding</h1>
 
   <label for="select1"></label>
-  <select id="select1" (change)="changeValue(cloudSelected);" #cloudSelected>
+  <select id="select1" [(ngModel)]="selectedValue">
     <option *ngFor="let cloudService of cloudServices" [value]="cloudService.id">
       {{ cloudService.name }}
     </option>
