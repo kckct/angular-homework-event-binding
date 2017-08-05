@@ -35,5 +35,23 @@ describe('AppComponent', () => {
 
       expect(component.changeValue).toHaveBeenCalled();
     });
+
+    it(`should change 'selectedValue' when selectedIndex changed in HTML`, () => {
+      const select = debugElement.query(By.css('select'));
+      select.nativeElement.selectedIndex = 1;
+      select.triggerEventHandler('change', null);
+      fixture.detectChanges();
+      expect(component.selectedValue).toBe('1');
+
+      select.nativeElement.selectedIndex = 2;
+      select.triggerEventHandler('change', null);
+      fixture.detectChanges();
+      expect(component.selectedValue).toBe('2');
+
+      select.nativeElement.selectedIndex = 0;
+      select.triggerEventHandler('change', null);
+      fixture.detectChanges();
+      expect(component.selectedValue).toBe('0');
+    });
   });
 });
