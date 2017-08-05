@@ -53,5 +53,14 @@ describe('AppComponent', () => {
       fixture.detectChanges();
       expect(component.selectedValue).toBe('0');
     });
+
+    it(`should use 'changeValue()' to change 'selectedValue'`, () => {
+      const selectedStub = <HTMLInputElement>{
+        'value': 'fake',
+      };
+      target.changeValue(selectedStub);
+
+      expect(target.selectedValue).toBe('fake');
+    });
   });
 });
