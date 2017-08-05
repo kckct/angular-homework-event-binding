@@ -1,32 +1,39 @@
-import { TestBed, async } from '@angular/core/testing';
-
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { DebugElement } from '@angular/core';
 import { AppComponent } from './app.component';
+import { FormsModule } from '@angular/forms';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
+  let debugElement: DebugElement;
+  let target: AppComponent;
+
+  beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [
+        FormsModule
+      ],
       declarations: [
         AppComponent
       ],
-    }).compileComponents();
-  }));
+    });
 
-  it('should create the app', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app).toBeTruthy();
-  }));
-
-  it(`should have as title 'app'`, async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('app');
-  }));
-
-  it('should render title in a h1 tag', async(() => {
-    const fixture = TestBed.createComponent(AppComponent);
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    debugElement = fixture.debugElement;
+    target = new AppComponent();
     fixture.detectChanges();
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('h1').textContent).toContain('Welcome to app!!');
-  }));
+  });
+
+  describe(`Select Event Binding`, () => {
+    it(`should use 'changeValue()' on 'select change' event in HTML`, () => {
+      spyOn(component, 'changeValue');
+      debugElement.query(By.css('select')).triggerEventHandler('change', null);
+      fixture.detectChanges();
+
+      expect(component.changeValue).toHaveBeenCalled();
+    });
+  });
 });
