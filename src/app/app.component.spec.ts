@@ -1,4 +1,4 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { AppComponent } from './app.component';
@@ -28,39 +28,23 @@ describe('AppComponent', () => {
   });
 
   describe(`Select Event Binding`, () => {
-    it(`should use 'changeValue()' on 'select change' event in HTML`, () => {
-      spyOn(component, 'changeValue');
-      debugElement.query(By.css('select')).triggerEventHandler('change', null);
-      fixture.detectChanges();
-
-      expect(component.changeValue).toHaveBeenCalled();
-    });
-
     it(`should change 'selectedValue' when selectedIndex changed in HTML`, () => {
-      const select = debugElement.query(By.css('select'));
-      select.nativeElement.selectedIndex = 1;
-      select.triggerEventHandler('change', null);
+      const select = debugElement.query(By.css('select')).nativeElement;
+
+      select.selectedIndex = 1;
+      select.dispatchEvent(new Event('change'));
       fixture.detectChanges();
       expect(component.selectedValue).toBe('1');
 
-      select.nativeElement.selectedIndex = 2;
-      select.triggerEventHandler('change', null);
+      select.selectedIndex = 2;
+      select.dispatchEvent(new Event('change'));
       fixture.detectChanges();
       expect(component.selectedValue).toBe('2');
 
-      select.nativeElement.selectedIndex = 0;
-      select.triggerEventHandler('change', null);
+      select.selectedIndex = 0;
+      select.dispatchEvent(new Event('change'));
       fixture.detectChanges();
       expect(component.selectedValue).toBe('0');
-    });
-
-    it(`should use 'changeValue()' to change 'selectedValue'`, () => {
-      const selectedStub = <HTMLInputElement>{
-        'value': 'fake',
-      };
-      target.changeValue(selectedStub);
-
-      expect(target.selectedValue).toBe('fake');
     });
   });
 });
